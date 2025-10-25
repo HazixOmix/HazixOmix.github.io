@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Haziq M. K. Moinudeen — CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<style>
+/* ================== THEME TOKENS ================== */
+:root{
+  --bg:#0b0c10;
+  --card:#10131a;
+  --muted:#9aa3b2;
+  --text:#e7edf5;
+  --border:#1f2430;
+  --chip:#151926;
+  --accent:#73ffc6;   /* neon mint  */
+  --accent2:#6aa2ff;  /* neon blue  */
+  --neon1:#00f5d4;    /* teal neon  */
+  --neon2:#7c3aed;    /* violet     */
+  --neon3:#22d3ee;    /* aqua       */
+  --shadow:0 10px 40px rgba(0,0,0,.35);
+  --glow:0 0 12px rgba(115,255,198,.55), 0 0 24px rgba(106,162,255,.35);
+}
+:root.light{
+  --bg:#f7fafc;
+  --card:#ffffff;
+  --muted:#536172;
+  --text:#0b1324;
+  --border:#e5e7eb;
+  --chip:#eef2f7;
+  --accent:#0ea5e9;
+  --accent2:#10b981;
+  --shadow:0 10px 36px rgba(2,6,23,.08);
+  --glow:0 0 10px rgba(14,165,233,.35), 0 0 18px rgba(16,185,129,.25);
+}
+
+/* ================== RESET / BASE ================== */
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(1200px 800px at 10% -10%, rgba(124,58,237,.18), transparent 60%),
+    radial-gradient(1000px 700px at 110% 10%, rgba(34,211,238,.16), transparent 55%),
+    linear-gradient(180deg, var(--bg), var(--bg));
+  line-height:1.55;
+  transition:background .35s ease,color .35s ease;
+}
+
+/* faint animated grid */
+body::before{
+  content:"";
+  position:fixed; inset:-2px;
+  background:
+    radial-gradient(ellipse at 20% -10%, rgba(115,255,198,.08), transparent 45%),
+    radial-gradient(ellipse at 120% 10%, rgba(106,162,255,.07), transparent 45%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 40px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 40px);
+  pointer-events:none;
+  mask-image: radial-gradient(60% 60% at 50% 20%, rgba(0,0,0,.7) 40%, transparent 100%);
+}
+
+/* neon sweep line */
+body::after{
+  content:"";
+  position:fixed; left:-20%; top:-20%;
+  width:140%; height:140%;
+  background: conic-gradient(from 180deg, transparent 0 80%, rgba(115,255,198,.12), rgba(106,162,255,.12), transparent);
+  filter: blur(40px);
+  animation: sweep 12s linear infinite;
+  pointer-events:none;
+}
+@keyframes sweep{to{transform:rotate(360deg)}}
+
+.container{max-width:1000px;margin:56px auto;padding:0 24px 120px}
+
+/* ================== HEADER ================== */
+.header{
+  position:relative;
+  display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;
+  background:linear-gradient(120deg, var(--card) 0 70%, rgba(106,162,255,.08));
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:28px;
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+/* neon border ring */
+.header::after{
+  content:""; position:absolute; inset:-2px; border-radius:20px;
+  background:linear-gradient(135deg, rgba(0,245,212,.18), rgba(106,162,255,.18), rgba(124,58,237,.14));
+  filter:blur(18px); opacity:.6; z-index:0;
+}
+.name{font-size:clamp(28px,3vw,36px);font-weight:800;letter-spacing:.2px}
+.subtitle{margin-top:6px;color:var(--muted)}
+.contact{display:flex;flex-wrap:wrap;gap:10px;justify-content:flex-end;align-items:center}
+.chip{
+  position:relative; z-index:1;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 12px;border-radius:999px;
+  background:var(--chip);
+  border:1px solid var(--border);
+  font-size:14px; white-space:nowrap;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.chip:hover{transform:translateY(-1px); box-shadow:var(--glow)}
+.chip svg{width:16px;height:16px;opacity:.9}
+a{color:inherit;text-decoration:none;text-underline-offset:3px}
+
+/* Theme toggle (always readable) */
+.toggle{
+  position:relative; z-index:1;
+  cursor:pointer; display:flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:999px;
+  background:linear-gradient(135deg, rgba(0,245,212,.12), rgba(106,162,255,.12));
+  border:1px solid var(--border);
+  box-shadow:var(--glow);
+  color:var(--text) !important;              /* <-- ensure contrast */
+  font-weight:600; letter-spacing:.2px;
+  transition:transform .15s ease, filter .2s ease;
+}
+.toggle:hover{transform:translateY(-1px)}
+.toggle .dot{
+  width:22px;height:22px;border-radius:50%;
+  background: radial-gradient(circle at 35% 35%, var(--accent) 0 40%, var(--accent2) 60%);
+  box-shadow:0 0 10px var(--accent), 0 0 18px rgba(106,162,255,.5) inset;
+}
+
+/* ================== SECTIONS ================== */
+.section{margin-top:30px}
+.section h2{
+  font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  margin:0 0 14px;font-weight:700
+}
+.card{
+  position:relative;
+  background:linear-gradient(180deg, var(--card), color-mix(in oklab, var(--card), #000 4%));
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;margin-bottom:14px;
+  overflow:hidden;
+}
+.card::before{
+  content:"";
+  position:absolute; inset:-1px; border-radius:16px;
+  background: radial-gradient(600px 180px at -10% 0%, rgba(0,245,212,.10), transparent 50%),
+              radial-gradient(600px 180px at 110% 0%, rgba(106,162,255,.10), transparent 50%);
+  pointer-events:none;
+}
+.row{display:grid;grid-template-columns:1fr auto;gap:12px}
+h3{margin:0;font-size:18px}
+.meta{color:var(--muted);font-size:14px}
+.badge{
+  display:inline-block;
+  background:linear-gradient(135deg, var(--accent), var(--accent2));
+  color:#0b0c10; padding:3px 8px; border-radius:8px; font-weight:800; font-size:12px; margin-left:8px
+}
+ul{margin:10px 0 0 18px;padding:0}
+li{margin:6px 0}
+.kicker{color:var(--muted)}
+
+/* skills chips */
+.skills{display:flex;flex-wrap:wrap;gap:10px}
+.skill{
+  background:linear-gradient(180deg, var(--chip), color-mix(in oklab, var(--chip), #fff 4%));
+  border:1px solid var(--border);
+  border-radius:10px;padding:8px 10px;font-size:14px
+}
+.hr{height:1px;background:var(--border);border-radius:1px;margin:22px 0}
+
+/* footer */
+.footer{margin-top:24px;color:var(--muted);font-size:12px;text-align:center}
+
+/* print mode stays clean */
+@media print{
+  .container{padding:0;margin:0}
+  .header{box-shadow:none}
+  .toggle{display:none}
+  a{text-decoration:none}
+  body{background:#fff;color:#000}
+  body::before, body::after{display:none}
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- ===== HEADER ===== -->
+    <header class="header" aria-label="Header">
+      <div>
+        <div class="name">Haziq M. K. Moinudeen</div>
+        <div class="subtitle">BSc Natural Sciences · Major in Neuroscience · Minor in Synthetic Organic Chemistry · University College London (UCL)</div>
+      </div>
+      <div class="contact" aria-label="Contact">
+        <span class="chip" title="Email">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 2l-8 5L4 6h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
+          <a href="mailto:haziq.moinudeen.25@ucl.ac.uk">haziq.moinudeen.25@ucl.ac.uk</a>
+        </span>
+        <span class="chip" title="Phone">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.05 15.05 0 006.6 6.6l2.2-2.2a1 1 0 011.1-.2c1.2.5 2.6.8 4 .8a1 1 0 011 1V20a1 1 0 01-1 1C11.3 21 3 12.7 3 2a1 1 0 011-1h3.2a1 1 0 011 1c0 1.4.3 2.8.8 4a1 1 0 01-.2 1.1l-2.2 2.2z"/></svg>
+          <a href="tel:+447341183131">+44 7341 183131</a>
+        </span>
+        <button class="toggle" id="modeToggle" aria-label="Toggle color mode"><span class="dot" aria-hidden="true"></span><span id="modeLabel">🌙 Dark</span></button>
+      </div>
+    </header>
+
+    <!-- ===== SUMMARY ===== -->
+    <section class="section" aria-labelledby="summary-h">
+      <h2 id="summary-h">Summary</h2>
+      <div class="card">
+        First-year <strong>BSc Natural Sciences</strong> student (Major in <strong>Neuroscience</strong>, Minor in <strong>Synthetic Organic Chemistry</strong>) at UCL. Interested in the intersection of <strong>synthetic biology</strong>, <strong>computational modeling</strong>, and <strong>biological therapies</strong> — spanning <strong>cell, gene, RNA</strong>, and <strong>nanoparticle (EV/LNP)</strong> platforms. During a <strong>gap year (2024–25)</strong>, developed and pitched biotech venture concepts through <strong>iGEM Startups</strong> and <strong>Venture Foundry</strong> programmes, mentored by <strong>UCL Biochemical Engineering</strong> and the <strong>GOSH Institute of Child Health</strong>.
+      </div>
+    </section>
+
+    <!-- ===== EDUCATION ===== -->
+    <section class="section" aria-labelledby="edu-h">
+      <h2 id="edu-h">Education</h2>
+      <div class="card">
+        <div class="row"><h3>University College London (UCL)</h3><div class="meta">Expected 2028</div></div>
+        <div class="kicker">BSc Natural Sciences · Major in Neuroscience · Minor in Synthetic Organic Chemistry</div>
+        <div class="meta">Ranked <strong>#9 globally</strong> (QS World University Rankings 2025)</div>
+      </div>
+      <div class="card">
+        <div class="row"><h3>Homeschool (A-Levels)</h3><div class="meta">Completed Jun 2024</div></div>
+        <div class="kicker">Maths (A*), Further Maths (A), Chemistry (A)</div>
+        <div class="meta">Roughly equivalent to <strong>three AP scores of 5</strong> (US system)</div>
+      </div>
+    </section>
+
+    <!-- ===== GAP YEAR ===== -->
+    <section class="section" aria-labelledby="gap-h">
+      <h2 id="gap-h">Gap Year Experience (2024–2025)</h2>
+      <div class="card">
+        <div class="row"><h3>iGEM Startups BioHackathon 2025 <span class="badge">Best Presentation — Winner</span></h3><div class="meta">Mar 2025</div></div>
+        <ul>
+          <li>Led <em>CellWhisperer</em>, a synthetic biology concept automating mRNA-based reprogramming for autologous iPSC therapies.</li>
+          <li>Presented concept to <strong>Prof. Keiichi Fukuda</strong> (Heartseed Inc.) and industry investors.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="row"><h3>iGEM Venture Foundry — Venture Creation Labs (Phate.bio Project)</h3><div class="meta">Apr 2025 – Jun 2025</div></div>
+        <ul>
+          <li>Selected for iGEM’s entrepreneurship and translational strategy programme.</li>
+          <li>Led <em>Phate.bio</em> — concept-stage scalable iPSC reprogramming project.</li>
+          <li>Pitched to <strong>Gus Domel</strong> (Boost VC) and <strong>Michael Gibson</strong> (1517 / Thiel Fellowship); advanced to <strong>Entrepreneur First (EF)</strong> interview stage.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="row"><h3>Mentorship — UCL Biochemical Engineering &amp; GOSH Institute of Child Health</h3><div class="meta">Oct 2024 – May 2025</div></div>
+        <ul>
+          <li>Mentors: <strong>Prof. Kenth Gustafsson</strong> &amp; <strong>Dr. Vaques George</strong>.</li>
+          <li>Guidance on proposal refinement, technical feedback, and investor demo prep for iGEM projects.</li>
+          <li>Authored early-stage grant proposals to <strong>UKRI SynbiCITE</strong> and the <strong>Foresight Institute</strong>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== EXPERIENCE ===== -->
+    <section class="section" aria-labelledby="exp-h">
+      <h2 id="exp-h">Previous Experience</h2>
+      <div class="card">
+        <div class="row"><h3>Tmmmt Tech — Applied Maths &amp; Operations Research Intern</h3><div class="meta">Jun–Sep 2021</div></div>
+        <ul>
+          <li>Applied operations research to optimize ride-dispatch logistics.</li>
+          <li>Built predictive ML model (~70% accuracy) to improve dispatch efficiency.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="row"><h3>Digival Solutions — Full-Stack Development Intern</h3><div class="meta">Jun–Sep 2020</div></div>
+        <ul>
+          <li>Developed a proof-of-concept exam platform using the MERN stack (MongoDB, Express, React, Node.js).</li>
+          <li>Implemented authentication, RESTful APIs, and real-time performance tracking.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== RESEARCH ===== -->
+    <section class="section" aria-labelledby="proj-h">
+      <h2 id="proj-h">Research Projects</h2>
+      <div class="card">
+        <div class="row"><h3>Physics-Informed Neural Networks for Inferring Waddington Landscapes</h3><div class="meta">Independent project</div></div>
+        <ul><li>Developed framework to reconstruct developmental energy landscapes from scRNA-seq and RNA velocity data without manual dimensionality reduction.</li></ul>
+      </div>
+      <div class="card">
+        <div class="row"><h3>Identifying Amphiregulin-Producing Immune Subsets in Liver Fibrosis</h3><div class="meta">Independent analysis (GSE159977)</div></div>
+        <ul><li>Used scVI and SCANVI to identify NK cells as dominant producers of Amphiregulin (AREG) in NAFLD/NASH liver tissue.</li></ul>
+      </div>
+      <div class="card">
+        <div class="row"><h3>Rational Design of RNA Kill Switches for Cell Product Purification</h3><div class="meta">Computational proposal</div></div>
+        <ul>
+          <li>Applied genetic algorithm optimization on single-cell RNA-seq data to design ribocomputing kill-switch architectures for selective removal of tumorigenic intermediates.</li>
+          <li>Presented concept for feedback to <strong>Dr. Djordje Djordjevic</strong>, CEO of Plurify Biosciences (Cambridge, UK).</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS ===== -->
+    <section class="section" aria-labelledby="skills-h">
+      <h2 id="skills-h">Skills</h2>
+      <div class="card">
+        <div class="kicker">Technical</div>
+        <div class="skills" style="margin-top:8px">
+          <span class="skill">Python</span><span class="skill">NumPy</span><span class="skill">Pandas</span><span class="skill">scikit-learn</span><span class="skill">PyTorch</span>
+          <span class="skill">React.js</span><span class="skill">Scanpy</span><span class="skill">scVI-tools</span><span class="skill">scVelo</span><span class="skill">Seurat</span>
+          <span class="skill">CellPhoneDB</span><span class="skill">GSEApy</span>
+        </div>
+        <div class="hr"></div>
+        <div class="kicker">Analytical</div>
+        <div class="skills" style="margin-top:8px">
+          <span class="skill">Single-cell transcriptomics</span><span class="skill">Probabilistic modeling</span><span class="skill">Algorithm design</span>
+        </div>
+        <div class="hr"></div>
+        <div class="kicker">Soft Skills</div>
+        <div class="skills" style="margin-top:8px">
+          <span class="skill">Scientific communication</span><span class="skill">Leadership</span>
+          <span class="skill">Research writing</span><span class="skill">Cross-disciplinary collaboration</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== AWARDS & MOOCs ===== -->
+    <section class="section" aria-labelledby="awards-h">
+      <h2 id="awards-h">Awards &amp; Certifications</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Best Presentation Award</strong> — iGEM Startups BioHackathon 2025</li>
+          <li><strong>iGEM Venture Creation Labs (2025 Cohort)</strong> — Training programme in biotech venture formation</li>
+          <li><strong>Pluripotent Stem Cell On-Demand Training Course</strong></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="kicker">Selected Online Courses (MOOCs)</div>
+        <ul>
+          <li><em>Quantitative Biology Workshop</em> — MITx (edX)</li>
+          <li><em>Machine Learning</em> — Stanford University (Coursera, Andrew Ng)</li>
+          <li><em>Deep Learning Specialization</em> — DeepLearning.AI (Coursera)</li>
+          <li><em>Immunology Specialization</em> — Rice University (Coursera)</li>
+          <li><em>Immunology Specialization</em> — Imperial College London (Coursera)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== SOCIETIES ===== -->
+    <section class="section" aria-labelledby="soc-h">
+      <h2 id="soc-h">Activities &amp; Societies</h2>
+      <div class="card">
+        <ul>
+          <li><strong>Public Speaking Society</strong>, UCL — workshops and speaker development.</li>
+          <li><strong>FemTech &amp; Women’s Health Society</strong>, UCL — innovation in reproductive health and women-focused biotech.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===== PERSONAL ===== -->
+    <section class="section" aria-labelledby="personal-h">
+      <h2 id="personal-h">Personal Background</h2>
+      <div class="card">
+        Homeschooled from age 8; completed A-Levels independently (A*AA). Early experience in machine learning and software development progressed into synthetic biology and quantitative biotech research. Currently studying Natural Sciences at UCL while exploring projects across <strong>cell, gene, RNA, and nanoparticle therapeutics</strong>.
+      </div>
+    </section>
+
+    <footer class="footer">© <span id="year"></span> Haziq M. K. Moinudeen · Neon CV mode: engaged ⚡</footer>
+  </div>
+
+<script>
+/* ===== Year ===== */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ===== Theme Toggle with Persistence & Contrast-Safe Label ===== */
+const root = document.documentElement;
+const btn  = document.getElementById('modeToggle');
+const lbl  = document.getElementById('modeLabel');
+
+(function initTheme(){
+  // load saved, else follow system preference
+  const saved = localStorage.getItem('haziq-theme');
+  const prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  if(saved === 'light' || (!saved && prefersLight)){ root.classList.add('light'); lbl.textContent='☀️ Light'; }
+  else{ root.classList.remove('light'); lbl.textContent='🌙 Dark'; }
+})();
+
+btn.addEventListener('click', ()=>{
+  root.classList.toggle('light');
+  const isLight = root.classList.contains('light');
+  lbl.textContent = isLight ? '☀️ Light' : '🌙 Dark';
+  localStorage.setItem('haziq-theme', isLight ? 'light' : 'dark');
+});
+
+// ensure label inherits proper color (contrast fix on some browsers):
+lbl.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text');
+
+/* watch for theme changes to re-apply label color (super safe) */
+const observer = new MutationObserver(()=>{ lbl.style.color = getComputedStyle(document.documentElement).getPropertyValue('--text'); });
+observer.observe(root, { attributes:true, attributeFilter:['class'] });
+
+(function initTheme(){
+  // Default = dark. Only enable light if saved = 'light'
+  const saved = localStorage.getItem('haziq-theme');
+  if(saved === 'light'){ 
+    root.classList.add('light'); 
+    lbl.textContent='☀️ Light'; 
+  } else { 
+    root.classList.remove('light'); 
+    lbl.textContent='🌙 Dark'; 
+  }
+})();
+</script>
+</body>
+</html>
