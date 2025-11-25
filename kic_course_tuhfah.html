@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Children's Bequest | Tajweed Principles</title>
+    <title>Tuhfat Al-Atfal | KIC Institute</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0f172a;
-            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --card-border: rgba(255, 255, 255, 0.1);
             --accent: #10b981; /* Emerald */
             --accent-glow: #34d399;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
             --gold: #fbbf24;
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
             --font-main: 'Outfit', sans-serif;
             --font-arabic: 'Amiri', serif;
         }
@@ -30,8 +31,8 @@
             font-family: var(--font-main);
             background-color: var(--bg-color);
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(251, 191, 36, 0.05) 0%, transparent 40%);
+                radial-gradient(circle at 15% 15%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 85% 85%, rgba(251, 191, 36, 0.08) 0%, transparent 50%);
             color: var(--text-primary);
             height: 100vh;
             overflow: hidden;
@@ -44,33 +45,42 @@
         .app-container {
             width: 100%;
             height: 100%;
-            max-width: 1200px;
+            max-width: 1600px;
             position: relative;
             display: flex;
             flex-direction: column;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
-        /* --- Header / Progress --- */
+        /* --- Header --- */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             z-index: 10;
         }
 
         .logo {
             font-weight: 800;
-            font-size: 1.2rem;
-            color: var(--accent);
+            font-size: 1.1rem;
+            color: var(--gold);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: var(--text-primary);
+            font-weight: 300;
         }
 
         .progress-container {
             width: 200px;
-            height: 6px;
+            height: 4px;
             background: rgba(255,255,255,0.1);
             border-radius: 10px;
             overflow: hidden;
@@ -88,137 +98,179 @@
             flex: 1;
             position: relative;
             overflow: hidden;
-            perspective: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .slide {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             opacity: 0;
-            transform: translateX(50px) scale(0.95);
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(60px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             pointer-events: none;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
+            padding: 1rem 0;
         }
 
         .slide.active {
             opacity: 1;
-            transform: translateX(0) scale(1);
+            transform: translateX(0);
             pointer-events: all;
             z-index: 2;
         }
 
         .slide.prev-slide {
-            transform: translateX(-50px) scale(0.95);
+            transform: translateX(-60px);
+            opacity: 0;
         }
 
-        /* --- Slide Content Styling --- */
+        /* --- Content Layout --- */
+        .slide-content {
+            display: grid;
+            grid-template-columns: 40% 55%; /* Split View: Explanation | Verses */
+            gap: 5%;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+        }
+
+        .text-column {
+            text-align: left;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .verse-column {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 2rem;
+            height: 85%;
+            overflow-y: auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        /* Scrollbar for verse column */
+        .verse-column::-webkit-scrollbar {
+            width: 8px;
+        }
+        .verse-column::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+        }
+        .verse-column::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+
+        /* --- Typography --- */
         h1 {
             font-size: 3.5rem;
             line-height: 1.1;
             margin-bottom: 1rem;
-            background: linear-gradient(to right, #fff, #cbd5e1);
+            background: linear-gradient(to right, #fff, #94a3b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         h2 {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
-        }
-
-        h3 {
+            font-size: 2.2rem;
             color: var(--accent);
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-        }
-
-        .arabic-title {
-            font-family: var(--font-arabic);
-            font-size: 4rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+            margin-bottom: 1.5rem;
         }
 
         p {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
+            font-size: 1.1rem;
             line-height: 1.6;
-            max-width: 700px;
-            margin: 0 auto 1.5rem auto;
-        }
-
-        .highlight {
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* --- Grid & Cards --- */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 900px;
-            margin-top: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 1.5rem;
-            border-radius: 16px;
-            text-align: left;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-            border-color: var(--accent);
-        }
-
-        .card h4 {
-            color: var(--text-primary);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card .icon {
-            color: var(--gold);
-            font-size: 1.5rem;
-        }
-
-        .card p {
-            font-size: 0.95rem;
-            margin: 0;
+            margin-bottom: 1rem;
             color: var(--text-secondary);
         }
 
-        .card .letters {
-            display: block;
-            margin-top: 10px;
-            font-family: var(--font-arabic);
-            font-size: 1.4rem;
+        .kic-badge {
+            background: rgba(16, 185, 129, 0.1);
             color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            width: fit-content;
         }
 
-        /* --- Footer / Navigation --- */
+        /* --- Verse Styling --- */
+        .verse-box {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 1.5rem;
+            transition: background 0.3s;
+        }
+        .verse-box:hover {
+            background: rgba(255,255,255,0.02);
+        }
+        .verse-box:last-child { border-bottom: none; }
+
+        .arabic {
+            font-family: var(--font-arabic);
+            font-size: 1.8rem;
+            color: var(--gold);
+            text-align: right;
+            line-height: 2.2;
+            margin-bottom: 0.8rem;
+            direction: rtl;
+        }
+
+        .english {
+            font-size: 1rem;
+            color: #e2e8f0;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .verse-num {
+            font-size: 0.75rem;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        /* --- Components --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .info-item {
+            background: rgba(255,255,255,0.03);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .info-label {
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: block;
+            letter-spacing: 1px;
+        }
+
+        /* --- Footer --- */
         footer {
             display: flex;
             justify-content: space-between;
@@ -247,15 +299,13 @@
             font-family: var(--font-main);
             font-weight: 600;
             transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         button:hover:not(:disabled) {
             background: var(--accent);
             color: #0f172a;
             box-shadow: 0 0 15px var(--accent-glow);
+            border-color: var(--accent);
         }
 
         button:disabled {
@@ -263,47 +313,34 @@
             cursor: not-allowed;
         }
 
-        /* --- Special Elements --- */
-        .diagram-row {
+        /* --- Single Column for Intro/End --- */
+        .slide.center-layout .slide-content {
             display: flex;
-            gap: 2rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
         }
-
-        .circle-badge {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--card-bg), rgba(255,255,255,0.05));
-            border: 2px solid var(--accent);
-            display: flex;
-            justify-content: center;
+        .slide.center-layout .text-column {
+            text-align: center;
             align-items: center;
-            font-family: var(--font-arabic);
-            font-size: 2rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .quote-box {
-            border-left: 4px solid var(--gold);
-            padding-left: 1.5rem;
-            font-style: italic;
-            text-align: left;
-            margin-top: 2rem;
-            max-width: 600px;
         }
 
         /* --- Responsive --- */
-        @media (max-width: 768px) {
-            h1 { font-size: 2rem; }
-            h2 { font-size: 1.5rem; }
-            .arabic-title { font-size: 2.5rem; }
-            .grid-container { grid-template-columns: 1fr; }
+        @media (max-width: 1024px) {
+            .slide-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                overflow-y: auto;
+            }
+            .verse-column {
+                height: 400px;
+                order: 2;
+            }
+            h1 { font-size: 2.5rem; }
+            .arabic { font-size: 1.5rem; }
             .app-container { padding: 1rem; }
-            p { font-size: 1rem; }
+            .info-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -312,7 +349,7 @@
     <div class="app-container">
         <!-- Header -->
         <header>
-            <div class="logo">Tuhfah al-Atfāl</div>
+            <div class="logo">KIC <span>Institute</span></div>
             <div class="progress-container">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
@@ -321,246 +358,650 @@
         <!-- Slides Wrapper -->
         <div class="slides-wrapper">
             
-            <!-- Slide 1: Intro -->
-            <div class="slide active" data-index="0">
-                <h3>Introduction</h3>
-                <div class="arabic-title">تحفة الأطفال</div>
-                <h1>The Children's Bequest</h1>
-                <p>A Journey into the Principles of Tajweed based on the poem by <strong>Sulayman al-Jamzuri</strong>.</p>
-                <div style="margin-top: 2rem; padding: 1rem; border: 1px solid var(--accent); border-radius: 8px; display: inline-block;">
-                    <span style="color: var(--accent); font-weight: bold;">Goal:</span> Perfection (Ihsan) in reciting the Qur'an.
+            <!-- Slide 1: Event Title -->
+            <div class="slide active center-layout" data-index="0">
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Weekend Seminar</span>
+                        <h1>Tuhfat Al-Atfal</h1>
+                        <h2 style="font-weight: 300; color: #fff; margin-bottom: 0.5rem;">Introduction to Tajweed</h2>
+                        <div style="font-size: 1.5rem; margin-top: 1rem; color: var(--gold); font-family: var(--font-arabic);">
+                            Sheikh Mudhaffer Noori
+                        </div>
+                        
+                        <div class="info-grid" style="text-align: left; width: 100%;">
+                            <div class="info-item">
+                                <span class="info-label">Location</span>
+                                <strong>Kilburn Islamic Centre</strong>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Date & Time</span>
+                                Nov 29-30 | 5PM - 9PM
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Who Can Attend</span>
+                                Open to Brothers & Sisters
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Registration</span>
+                                <span style="color: var(--accent);">Sign-up Required</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Slide 2: Context -->
+            <!-- Slide 2: About the Author (NEW) -->
             <div class="slide" data-index="1">
-                <h3>The Context</h3>
-                <h2>About the Author</h2>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4><span class="icon">✍️</span> The Poet</h4>
-                        <p>Sulayman al-Jamzuri (d. ~1198 AH)</p>
-                        <p>From Jamzur, Egypt.</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Biography</span>
+                        <h2>The Author</h2>
+                        <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Sulaymān al-Jamzūrī</h1>
+                        <p style="color: var(--gold); font-family: var(--font-arabic); font-size: 1.5rem; margin-bottom: 1.5rem;">سليمان الجمزوري</p>
+                        <p>A renowned Qur’an reciter from Egypt, best known for authoring this very poem, <em>Tuhfat al-Atfal</em>.</p>
+                        <p>He was known as <strong>al-Afandī</strong>.</p>
                     </div>
-                    <div class="card">
-                        <h4><span class="icon">📜</span> The Text</h4>
-                        <p>Written in verse (rhyme & meter) to facilitate easy memorization for beginners and students.</p>
-                    </div>
-                    <div class="card">
-                        <h4><span class="icon">🎯</span> Focus</h4>
-                        <p>The poem specifically covers Nun Sakin, Tanween, and Madd rules.</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Full Name</span>
+                            <div class="english" style="color: #fff; font-style: normal; font-size: 1.1rem;">
+                                Sulaymān ibn Ḥusayn ibn Muḥammad al-Jamzūrī
+                            </div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Origin (Nisba)</span>
+                            <div class="english" style="color: #fff; font-style: normal;">
+                                <strong>Jamzūr</strong>, a village in the district of Ṭanṭā, Egypt.
+                            </div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Birth</span>
+                            <div class="english" style="color: #fff; font-style: normal;">
+                                Born in <strong>Rabīʿ al-Awwal</strong> in the mid-1100s AH (approx. 1160s AH).
+                            </div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Notable Timeline</span>
+                            <div class="english" style="color: #fff; font-style: normal;">
+                                The exact year of his death is unknown. However, he was alive in <strong>1208 AH</strong>, the year he completed his book <em>“al-Fatḥ al-Raḥmānī.”</em>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 3: 4 Rules Intro -->
+            <!-- Slide 3: Introduction (Verses 1-5) -->
             <div class="slide" data-index="2">
-                <h3>Nun Sakin & Tanween</h3>
-                <h2>The Four Fundamental Rules</h2>
-                <p>Whenever you see a Nun with a Sukoon (نْ) or Tanween (an/in/un), one of four rules applies depending on the next letter.</p>
-                <div class="diagram-row">
-                    <div style="text-align: center;">
-                        <div class="circle-badge">1</div>
-                        <p>Izhar<br>(Clarity)</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 1-5</span>
+                        <h2>Introduction</h2>
+                        <p>The poem begins with the author expressing his hope for Allah's mercy.</p>
+                        <p>He dedicates this poem, "The Children's Bequest", to students who wish to master the rules of Nun, Tanween, and Madd.</p>
+                        <p>He acknowledges his teacher, <strong>Sheikh al-Meehi</strong>, and prays that this work brings benefit and reward.</p>
                     </div>
-                    <div style="text-align: center;">
-                        <div class="circle-badge">2</div>
-                        <p>Idgham<br>(Merging)</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div class="circle-badge">3</div>
-                        <p>Iqlab<br>(Change)</p>
-                    </div>
-                    <div style="text-align: center;">
-                        <div class="circle-badge">4</div>
-                        <p>Ikhfa<br>(Hiding)</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 1</span>
+                            <div class="arabic">يَقُولُ رَاجِي رَحْمَةِ الْغَفُورِ ... دَوْمًا سُلَيْمَانُ هُوَ الْجَمْزُورِي</div>
+                            <div class="english">Says he who steadily longs for the mercy of the All-Forgiving Benefactor, Sulayman, who is from Jamzur.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 2</span>
+                            <div class="arabic">الْحَمْدُ لِلَّهِ مُصَلِّيًا عَلَى ... مُحَمَّدٍ وَآلِهِ وَمَنْ تَلاَ</div>
+                            <div class="english">Praise be to Allah for allowing me to send prayers and reverence, Upon Muhammad, his kin and those who followed him in deference.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 3</span>
+                            <div class="arabic">وَبَعْدُ هَذَا النَّظْمُ لِلْمُرِيدِ ... فِي النُّونِ وَالتَّنْوِينِ وَالْمُدُودِ</div>
+                            <div class="english">Following that, this poem is for those who yearn to know, the Nun Sakin, Tanween and Madd rules as they go.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 4</span>
+                            <div class="arabic">سَمَّيْتُهُ بِتُحْفَةِ الأَطْفَالِ ... عَنْ شَيْخِنَا الْمِيهِيِّ ذِي الْكَمَالِ</div>
+                            <div class="english">I have resolved to title it "the Children’s Bequest," and relate from my shaykh al-Meehi these precepts most perfect.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 5</span>
+                            <div class="arabic">أَرْجُو بِهِ أَنْ يَنْفَعَ الطُّلاَّبَا ... وَالأَجْرَ وَالْقَبُولَ وَالثَّوَابَا</div>
+                            <div class="english">I cherish that this proves of worth to its students, and brings with it reward, reception and recompense.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 4: Izhar & Idgham -->
+            <!-- Slide 4: Nun Sakin - Izhar (Verses 6-7) -->
             <div class="slide" data-index="3">
-                <h3>Nun Sakin Rules</h3>
-                <h2>Izhar & Idgham</h2>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4>🔊 Izhar (Clarity)</h4>
-                        <p>Pronounce the Nun clearly without nasal sound.</p>
-                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">Throat Letters:</p>
-                        <span class="letters">ء هـ ع ح غ خ</span>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 6-7</span>
+                        <h2>Nun Sakin: Izhar</h2>
+                        <p><strong>Izhar</strong> means clarity. This is the first rule of Nun Sakin and Tanween.</p>
+                        <p>If the Nun is followed by any of the 6 <strong>Throat Letters</strong>, it must be pronounced clearly without an extra Ghunnah.</p>
+                        <ul style="margin-left:20px; color: var(--gold);">
+                            <li>Hamza, Ha (هـ)</li>
+                            <li>'Ain, Ha (ح)</li>
+                            <li>Ghain, Kha</li>
+                        </ul>
                     </div>
-                    <div class="card">
-                        <h4>🔗 Idgham (Merging)</h4>
-                        <p>Merge the Nun into the next letter.</p>
-                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">Yarmaloon:</p>
-                        <span class="letters">ي ر م ل و ن</span>
-                        <p style="font-size: 0.8rem; margin-top:5px;">Note: No merging if in one single word (e.g., Dunya).</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 6</span>
+                            <div class="arabic">لِلنُّونِ إِنْ تَسْكُنْ وَلِلتَّنْوِينِ ... أَرْبَعُ أَحْكَامٍ فَخُذْ تَبْيِينِ</div>
+                            <div class="english">For the nun without vowels and the tanween diction, exist four basic rules, so take my depiction.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 7</span>
+                            <div class="arabic">فَالأَوَّلُ الإِظْهَارُ قَبْلَ أَحْرُفِ ... لِلْحَلْقِ سِتٌّ رُتِّبَتْ فَلْتَعْرِفِ</div>
+                            <div class="english">The first of these, the rule of Izhar, is before the letters hence, arising from the throat, six in number, in this known sequence:</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 8</span>
+                            <div class="arabic">هَمْزٌ فَهَاءٌ ثُمَّ عَيْنٌ حَاءُ ... مُهْمَلَتَانِ ثُمَّ غَيْنٌ خَاءُ</div>
+                            <div class="english">Hamza and Ha, then 'Ain and Ha, without the marks, then Ghain and Kha.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 5: Iqlab & Ikhfa -->
+            <!-- Slide 5: Nun Sakin - Idgham (Verses 8-12) -->
             <div class="slide" data-index="4">
-                <h3>Nun Sakin Rules</h3>
-                <h2>Iqlab & Ikhfa</h2>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4>🔄 Iqlab (Conversion)</h4>
-                        <p>Convert the Nun into a Hidden Mim with Ghunnah.</p>
-                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">Only 1 Letter:</p>
-                        <span class="letters">ب</span>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 9-12</span>
+                        <h2>Nun Sakin: Idgham</h2>
+                        <p><strong>Idgham</strong> means merging. It occurs with the letters of <em>Yarmaloon</em> (ي ر م ل و ن).</p>
+                        <p><strong>Two Types:</strong></p>
+                        <ul>
+                            <li><strong>With Ghunnah:</strong> Yanmu (ي ن م و)</li>
+                            <li><strong>Without Ghunnah:</strong> Lam, Ra</li>
+                        </ul>
+                        <p style="margin-top:1rem; font-size:0.9rem; color:var(--gold);">Exception: If Nun and the letter are in the same word (e.g., Dunya), do not merge (Izhar Mutlaq).</p>
                     </div>
-                    <div class="card">
-                        <h4>🌫️ Ikhfa (Hiding)</h4>
-                        <p>Hide the Nun sound between clear and merged, with Ghunnah.</p>
-                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">The Remaining 15:</p>
-                        <p style="font-size:0.8rem; margin-top:5px;">(Ta, Tha, Jim, Dal, Dhal, Zay, Sin, Shin, Sad, Dad, Ta, Za, Fa, Qaf, Kaf)</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 9</span>
+                            <div class="arabic">وَالثَّانِ إِدْغَامٌ بِسِتَّةٍ أَتَتْ ... فِي يَرْمَلُونَ عِنْدَهُمْ قَدْ ثَبَتَتْ</div>
+                            <div class="english">The second is Idgham, with six it takes effect, in yarmaloon, a mnemonic which they accept.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 10</span>
+                            <div class="arabic">لَكِنَّهَا قِسْمَانِ قِسْمٌ يُدْغَمَا ... فِيهِ بِغُنَّةٍ بِيَنْمُو عُلِمَا</div>
+                            <div class="english">But this is of two types, with the first being verbalized, with the trait of ghunna, and by yanmu recognized.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 11</span>
+                            <div class="arabic">إِلاَّ إِذَا كَانَا بِكِلْمَةٍ فَلاَ ... تُدْغِمْ كَدُنْيَا ثُمَّ صِنْوَانٍ تَلاَ</div>
+                            <div class="english">Except if this occurs within one word, then there is none, no idgham in articulation, as in dunya and sinwan.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 12</span>
+                            <div class="arabic">وَالثَّانِ إِدْغَامٌ بِغَيْرِ غُنَّهْ ... فِي اللاَّمِ وَالرَّا ثُمَّ كَرِّرَنَّهْ</div>
+                            <div class="english">The second type is Idgham without the ghunna trait, in lam and raa, but the latter you must reverberate.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 6: Mim Rules -->
+            <!-- Slide 6: Nun Sakin - Iqlab (Verse 13) -->
             <div class="slide" data-index="5">
-                <h3>Mim & Shaddah</h3>
-                <h2>Rules of Mim Sakin</h2>
-                <div style="margin-bottom: 2rem; background: rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 8px; border: 1px solid var(--accent);">
-                    <strong>Rule of Shaddah ( ّ ):</strong> Any Nun or Mim with a Shaddah requires a strong Ghunnah (2 counts).
-                </div>
-                <div class="grid-container" style="margin-top: 0;">
-                    <div class="card">
-                        <h4>Ikhfa Shafawi</h4>
-                        <p>Labial Hiding. Before letter <strong>Baa (ب)</strong>.</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verse 13</span>
+                        <h2>Nun Sakin: Iqlab</h2>
+                        <p><strong>Iqlab</strong> means conversion.</p>
+                        <p>When Nun Sakin or Tanween is followed by the letter <strong>Baa (ب)</strong>, the Nun turns into a hidden Meem with Ghunnah.</p>
+                        <div style="background: rgba(251, 191, 36, 0.1); padding: 1rem; border-radius: 8px; border-left: 3px solid var(--gold);">
+                            Example: <em>Min Ba'di</em> becomes <em>Mimba'di</em>.
+                        </div>
                     </div>
-                    <div class="card">
-                        <h4>Idgham</h4>
-                        <p>Merging. Before another <strong>Mim (م)</strong>.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Izhar Shafawi</h4>
-                        <p>Clarity. Before <strong>all other letters</strong>.</p>
-                        <p style="font-size:0.8rem; color: #f87171; margin-top:5px;">⚠️ Be careful not to hide Mim before Waw or Fa!</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 13</span>
+                            <div class="arabic">وَالثَّالِثُ الإِقْلاَبُ عِنْدَ الْبَاءِ ... مِيمًا بِغُنَّةٍ مَعَ الإِخْفَاءِ</div>
+                            <div class="english">The third rule is Iqlab which occurs with the letter baa, which is converted to meem and pronounced with Ikhfaa.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 7: Lam Rules -->
+            <!-- Slide 7: Nun Sakin - Ikhfa (Verses 14-16) -->
             <div class="slide" data-index="6">
-                <h3>The Definite Article</h3>
-                <h2>Rules of Lam (Al-)</h2>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4>🌑 Lam Qamariya (Lunar)</h4>
-                        <p><strong>Pronounced Clearly.</strong></p>
-                        <p>Before 14 letters (e.g., Al-Qamar, Al-Kitab).</p>
-                        <p style="font-size: 0.8rem; margin-top:5px;">"Seek your goal and futile pursuits repel"</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 14-16</span>
+                        <h2>Nun Sakin: Ikhfa</h2>
+                        <p><strong>Ikhfa</strong> means hiding. It applies to the remaining 15 letters.</p>
+                        <p>The sound is held between Izhar and Idgham, with a Ghunnah.</p>
+                        <p>The letters are collected in the opening letter of each word in verse 16 (<em>Sif Dha Thana...</em>).</p>
                     </div>
-                    <div class="card">
-                        <h4>☀️ Lam Shamsiyya (Solar)</h4>
-                        <p><strong>Merged (Silent Lam).</strong></p>
-                        <p>Before remaining 14 letters (e.g., Al-Shams, Al-Rahman).</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 14</span>
+                            <div class="arabic">وَالرَّابِعُ الإِخْفَاءُ عِنْدَ الْفَاضِلِ ... مِنَ الْحُرُوفِ وَاجِبٌ لِلْفَاضِلِ</div>
+                            <div class="english">The fourth is Ikhfa for the respected student, with specified letters mandatory for the student.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 15</span>
+                            <div class="arabic">فِي خَمْسَةٍ مِنْ بَعْدِ عَشْرٍ رَمْزُهَا ... فِي كِلْمِ هَذَا البَيْتِ قَد ضَّمَّنْتُهَا</div>
+                            <div class="english">In fifteen letters it takes effect, within this prose that I erect:</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 16</span>
+                            <div class="arabic">صِفْ ذَا ثَنَا كَمْ جَادَ شَخْصٌ قَدْ سَمَا ... دُمْ طَيِّبًا زِدْ فِي تُقًى ضَعْ ظَالِمَا</div>
+                            <div class="english">Relate of the praiseworthy one, how excellent is he who achieves status robust; Be ever perpetual in virtue, cultivate piety, and fend off the one who is unjust.</div>
+                        </div>
                     </div>
                 </div>
-                <p style="margin-top: 2rem; font-size: 0.9rem;">*Verbal Lams (in verbs) are always pronounced clearly.</p>
             </div>
 
-            <!-- Slide 8: Relationships -->
+            <!-- Slide 8: Ghunnah (Verse 17) -->
             <div class="slide" data-index="7">
-                <h3>Advanced</h3>
-                <h2>Letter Relationships</h2>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4>Mithlayn</h4>
-                        <p>Identical letters (e.g. Baa meets Baa).</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verse 17</span>
+                        <h2>Meem & Nun Mushaddad</h2>
+                        <p>A simple but critical rule: Whenever <strong>Nun</strong> or <strong>Meem</strong> has a Shaddah (double accent), you must hold the Ghunnah (nasal sound) for 2 counts.</p>
+                        <p>They are called "Letters of Ghunnah".</p>
                     </div>
-                    <div class="card">
-                        <h4>Mutaqaribayn</h4>
-                        <p>Close in articulation & attributes.</p>
-                    </div>
-                    <div class="card">
-                        <h4>Mutajanisayn</h4>
-                        <p>Same articulation, different attributes.</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 17</span>
+                            <div class="arabic">وَغُنَّ مِيمًا ثُمَّ نُونًا شُدِّدَا ... وَسَمِّ كُلاًّ حَرْفَ غُنَّةٍ بَدَا</div>
+                            <div class="english">And articulate ghunnah of the nun and meem that carries the double accent, and refer to both as letters of ghunna, as is obvious and apparent.</div>
+                        </div>
                     </div>
                 </div>
-                <p style="margin-top: 1.5rem;">General Rule: If the first is silent (Sakin), merge it into the second.</p>
             </div>
 
-            <!-- Slide 9: Madd Intro -->
+            <!-- Slide 9: Meem Sakin Rules (Verses 18-22) -->
             <div class="slide" data-index="8">
-                <h3>Elongation</h3>
-                <h2>Introduction to Madd</h2>
-                <div style="font-size: 4rem; color: var(--gold); margin-bottom: 1rem;">ا و ي</div>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4>Madd Asli (Natural)</h4>
-                        <p>Baseline length (2 counts).</p>
-                        <p>Not followed by Hamza or Sukoon.</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 18-22</span>
+                        <h2>Meem Sakin</h2>
+                        <p>When Meem has no vowel, there are 3 rules:</p>
+                        <ol style="margin-left:20px; margin-top:10px;">
+                            <li><strong>Ikhfa Shafawi:</strong> Before Baa.</li>
+                            <li><strong>Idgham:</strong> Before another Meem.</li>
+                            <li><strong>Izhar Shafawi:</strong> Before all other letters.</li>
+                        </ol>
+                        <p style="color: #f87171; margin-top:1rem; font-size:0.9rem;">*Warning: Be careful to be clear before Waw and Fa.</p>
                     </div>
-                    <div class="card">
-                        <h4>Madd Far'i (Derived)</h4>
-                        <p>Extra length caused by a reason.</p>
-                        <p><strong>Reasons:</strong> Hamza (ء) or Sukoon (ْ).</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 18</span>
+                            <div class="arabic">وَالْمِيمُ إِنْ تَسْكُنْ تَجِي قَبْلَ الْهِجَا ... لاَ أَلِفٍ لَيِّنَةٍ لِذِي الْحِجَا</div>
+                            <div class="english">When stopping on Meem before the letters of the alphabet, but not before the Alif Layyinah, for he who is intelligent...</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 19</span>
+                            <div class="arabic">أَحْكَامُهَا ثَلاَثَةٌ لِمَنْ ضَبَطْ ... إِخْفَاءٌ ادْغَامٌ وَإِظْهَارٌ فَقَطْ</div>
+                            <div class="english">Are three rules for he who would save them to memory, and they are the rules of Ikhfa, Idgham and Izhar only.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 20</span>
+                            <div class="arabic">فَالأَوَّلُ الإِخْفَاءُ عِنْدَ الْبَاءِ ... وَسَمِّهِ الشَّفْوِيَّ لِلْقُرَّاءِ</div>
+                            <div class="english">The first is Ikhfa with the baa letter, termed Labial Ikhfa by the recitors.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 21</span>
+                            <div class="arabic">وَالثَّانِ إِدْغَامٌ بِمِثْلِهَا أَتَى ... وَسَمِّ إِدْغَامًا صَغِيرًا يَا فَتَى</div>
+                            <div class="english">The second is Idgham when its likeness (meem) appears, and name it the Lesser Idgham my dears.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 22</span>
+                            <div class="arabic">وَالثَّالِثُ الإِظْهَارُ فِي الْبَقِيَّهْ ... مِنْ أَحْرُفٍ وَسَمِّهَا شَفْوِيَّهْ</div>
+                            <div class="english">The third is Izhar which occurs with the balance of the letters, and termed Labial Izhar in our parlance.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 23 (Warning)</span>
+                            <div class="arabic">وَاحْذَرْ لَدَى وَاوٍ وَفَا أَنْ تَخْتَفِي ... لِقُرْبِهَا وَالاتِّحَادِ فَاعْرِفِ</div>
+                            <div class="english">And be wary of making Ikhfa with waw and faa when you read, due to the closeness and unity of its makhraj, so take heed.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 10: Madd Hamza -->
+            <!-- Slide 10: Lam of Al- (Verses 24-28) -->
             <div class="slide" data-index="9">
-                <h3>Caused by Hamza</h3>
-                <h2>Derived Madd Types</h2>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4>Madd Muttasil</h4>
-                        <p>Connected (Same word).</p>
-                        <p style="color:var(--accent);">Mandatory (4-5 counts).</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 24-28</span>
+                        <h2>Lam of "Al" (The)</h2>
+                        <p><strong>Lam Qamariya (Lunar):</strong> Pronounced clearly. Occurs before 14 letters (e.g., Al-Qamar).</p>
+                        <p><strong>Lam Shamsiyya (Solar):</strong> Merged (Silent). Occurs before 14 letters (e.g., Ash-Shams).</p>
                     </div>
-                    <div class="card">
-                        <h4>Madd Munfasil</h4>
-                        <p>Separated (Next word).</p>
-                        <p style="color:var(--gold);">Allowed (2, 4-5 counts).</p>
-                    </div>
-                    <div class="card">
-                        <h4>Madd Badal</h4>
-                        <p>Hamza precedes Madd letter.</p>
-                        <p>2 counts.</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 24</span>
+                            <div class="arabic">لِلاَمِ أَلْ حَالَانِ قَبْلَ الأَحْرُفِ ... أُولاَهُمَا إِظْهَارُهَا فَلْتَعْرِفِ</div>
+                            <div class="english">The lam of the definite article exists in two states before the letters, the first is its manifest articulation...</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 25</span>
+                            <div class="arabic">قَبْلَ ارْبَعٍ مَعْ عَشْرَةٍ خُذْ عِلْمَهُ ... مِنِ ابْغِ حَجَّكَ وَخَفْ عَقِيمَهُ</div>
+                            <div class="english">Occuring before fourteen letters... from this mnemonic: "Seek your goal and futile pursuits repel."</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 26</span>
+                            <div class="arabic">ثَانِيهِمَا إِدْغَامُهَا فِي أَرْبَعِ ... وَعَشْرَةٍ أَيْضًا وَرَمْزُهَا فَعِ</div>
+                            <div class="english">The second is its assimilation, which in fourteen does exist, and likewise, facilitate your recollection of them from this:</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 27</span>
+                            <div class="arabic">طِبْ ثُمَّ صِلْ رُحْمًا تَفُزْ ضِفْ ذَا نِعَمْ ... دَعْ سُوءَ ظَنٍّ زُرْ شَرِيفًا لِلْكَرَمْ</div>
+                            <div class="english">Be meritorious, maintain relations for success... (Mnemonic for Solar Letters).</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 28</span>
+                            <div class="arabic">وَاللاَّمَ الأُولَى سَمِّهَا قَمْرِيَّهْ ... وَاللاَّمَ الأُخْرَى سَمِّهَا شَمْسِيَّهْ</div>
+                            <div class="english">Name the first Lam Qamariya, and the latter Lam Shamsiyya.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 11: Madd Lazim -->
+            <!-- Slide 11: Verbal Lam (Verses 29-31) -->
             <div class="slide" data-index="10">
-                <h3>Caused by Sukoon</h3>
-                <h2>Madd Lazim (Compulsory)</h2>
-                <div style="border: 2px solid var(--text-primary); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">6</div>
-                <p>Must be elongated 6 counts. Caused by a permanent Sukoon.</p>
-                <div class="grid-container">
-                    <div class="card">
-                        <h4>Kalimi (Word)</h4>
-                        <p>Occurs in words (e.g. <em>Daallaleen</em>).</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 29-31</span>
+                        <h2>The Verbal Lam</h2>
+                        <p>Unlike the Lam of "Al", the Lam inside a verb is <strong>always clear (Izhar)</strong>.</p>
+                        <p>Example: <em>Qul</em> (Say), <em>Iltaqa</em> (Met).</p>
                     </div>
-                    <div class="card">
-                        <h4>Harfi (Letter)</h4>
-                        <p>Occurs in opening letters (e.g. <em>Alif Lam Meem</em>).</p>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 29</span>
+                            <div class="arabic">وَأَظْهِرَنَّ لاَمَ فِعْلٍ مُطْلَقَا ... فِي نَحْوِ قُلْ نَعَمْ وَقُلْنَا وَالْتَقَى</div>
+                            <div class="english">And pronounce with manifestation the verbal lam consistently, in words like Qul Naam, Qulna, Waltaqaa and their variety.</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 12: Conclusion -->
+            <!-- Slide 12: Relationships (Verses 32-36) -->
             <div class="slide" data-index="11">
-                <div class="arabic-title">الخاتمة</div>
-                <h2>Conclusion</h2>
-                <div class="quote-box">
-                    <p>"Start simple. Do not wait for the perfect time to study. Utilize the local resources and teachers you have."</p>
-                    <p style="text-align: right; font-size: 0.9rem; margin-top: 1rem;">— Dr. Abu Zayd (Foreword)</p>
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 32-36</span>
+                        <h2>Letter Relationships</h2>
+                        <p>Letters are related by their output (Makhraj) and attributes (Sifat).</p>
+                        <ul style="margin-left:20px;">
+                            <li><strong>Mithlayn:</strong> Identical (e.g. Baa & Baa).</li>
+                            <li><strong>Mutaqaribayn:</strong> Close (e.g. Qaf & Kaf).</li>
+                            <li><strong>Mutajanisayn:</strong> Same Makhraj, Diff Sifat (e.g. Ta & Da).</li>
+                        </ul>
+                    </div>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 30</span>
+                            <div class="arabic">إِنْ فِي الصِّفَاتِ وَالْمَخَارِجِ اتَّفَقْ ... حَرْفَانِ فَالْمِثْلاَنِ فِيهِمَا أَحَقْ</div>
+                            <div class="english">If two letters agree in attribute and point of articulation, then it is more deserving to use the Mithlayn designation.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 31</span>
+                            <div class="arabic">وَإِنْ يَكُونَا مَخْرَجًا تَقَارَبَا ... وَفِي الصِّفَاتِ اخْتَلَفَا يُلَقَّبَا</div>
+                            <div class="english">But if the two in their points of articulation be akin, yet in their attributes varying then use the heading...</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 32</span>
+                            <div class="arabic">مُتَقَارِبَيْنِ أَوْ يَكُونَا اتَّفَقَا ... فِي مَخْرَجٍ دُونَ الصِّفَاتِ حُقِّقَا</div>
+                            <div class="english">Mutaqaribayn; And if they so happen to concur in articulation but not attribute then they deserve...</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 33</span>
+                            <div class="arabic">بِالْمُتَجَانِسَيْنِ ثُمَّ إِنْ سَكَن ... أَوَّلُ كُلٍّ فَالصَّغِيرَ سَمِّيَن</div>
+                            <div class="english">Mutajanisayn; And if its status be unvowelled of the first letter in each case, the Lesser is the title.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 34</span>
+                            <div class="arabic">أَوْ حُرِّكَ الْحَرْفَانِ فِي كُلٍّ فَقُلْ ... كُلٌّ كَبِيرٌ وَافْهَمَنْهُ بِالْمُثُلْ</div>
+                            <div class="english">And if both the letters are vowelled in all the situations, then term it the Greater, and learn this with illustrations.</div>
+                        </div>
+                    </div>
                 </div>
-                <p style="margin-top: 2rem;">May Allah grant us the ability to recite His book with perfection (Ihsan).</p>
-                <button onclick="goToSlide(0)" style="margin-top: 2rem; background: var(--gold); color: #000;">Restart Presentation</button>
+            </div>
+
+            <!-- Slide 13: Intro to Madd (Verses 37-43) -->
+            <div class="slide" data-index="12">
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 37-43</span>
+                        <h2>Madd (Elongation)</h2>
+                        <p><strong>Natural (Asli):</strong> The innate length (2 counts) without an external cause.</p>
+                        <p><strong>Derived (Far'i):</strong> Extended length caused by <strong>Hamza</strong> or <strong>Sukoon</strong>.</p>
+                        <p>The Madd letters are Alif, Waw, and Ya.</p>
+                    </div>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 35</span>
+                            <div class="arabic">وَالْمَدُّ أَصْلِيٌّ وَ فَرْعِيٌّ لَهُ ... وَسَمِّ أَوَّلاً طَبِيعِيًّا وَهُوَ</div>
+                            <div class="english">Mad exists in two types, they being Natural and Derived, so name the initial one Natural...</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 36</span>
+                            <div class="arabic">مَا لاَ تَوَقُّفٌ لَهُ عَلَى سَبَبْ ... وَلاَ بِدُونِهِ الْحُرُوفُ تُجْتَلَبْ</div>
+                            <div class="english">Of that madd which on a cause does not rely, and neither can its letters without it be realized.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 37</span>
+                            <div class="arabic">بَلْ أَيُّ حَرْفٍ غَيْرُ هَمْزٍ أَوْ سُكُونْ ... جَا بَعْدَ مَدٍّ فَالطَّبِيعِيَّ يَكُونْ</div>
+                            <div class="english">But if any letter, barring hamza, or sukoon at hand follows the madd, then arises the Natural brand.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 38</span>
+                            <div class="arabic">وَالآخَرُ الْفَرْعِيُّ مَوْقُوفٌ عَلَى ... سَبَبْ كَهَمْزٍ أَوْ سُكُونٍ مُسْجَلاَ</div>
+                            <div class="english">The second type is the Derived madd which rests upon a cause, namely, always on the hamza letter or sukoon.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 39</span>
+                            <div class="arabic">حُرُوفُهُ ثَلاَثَةٌ فَعِيهَا ... مِنْ لَفْظِ وَايٍ وَهْيَ فِي نُوحِيهَا</div>
+                            <div class="english">The madd has three letters, so know them as explained, in the mnemonic wai and in the word nuuheehaa contained.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 40</span>
+                            <div class="arabic">وَالْكَسْرُ قَبْلَ الْيَا وَقَبْلَ الْوَاوِ ضَمْ ... شَرْطٌ وَفَتْحٌ قَبْلَ أَلْفٍ يُلْتَزَمْ</div>
+                            <div class="english">And kasra before the letter ya, and waw with dhamma preceding, is surely a condition, whereas the fatha before the alif is binding.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 41</span>
+                            <div class="arabic">وَاللِّينُ مِنْهَا الْيَا وَوَاوٌ سُكِّنَا ... إِنِ انْفِتَاحٌ قَبْلَ كُلٍّ أُعْلِنَا</div>
+                            <div class="english">And from these are the Layyin letters: waw and ya sakin, when preceded by the vowel fatha, as is plainly lucent.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 14: Madd Rules (Verses 44-47) -->
+            <div class="slide" data-index="13">
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 44-47</span>
+                        <h2>Madd Rules</h2>
+                        <p><strong>Wajib (Muttasil):</strong> Hamza in same word. (4-5 counts).</p>
+                        <p><strong>Ja'iz (Munfasil):</strong> Hamza in next word. (Allowed to shorten or lengthen).</p>
+                        <p><strong>Lazim:</strong> Permanent Sukoon follows.</p>
+                    </div>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 42</span>
+                            <div class="arabic">لِلْمَدِّ أَحْكَامٌ ثَلاَثَةٌ تَدُومْ ... وَهْيَ الْوُجُوبُ وَالْجَوَازُ وَاللُّزُومْ</div>
+                            <div class="english">The derived madd, its rules are always three; and they are Wajib, Ja’iz and Lazim only.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 43</span>
+                            <div class="arabic">فَوَاجِبٌ إِنْ جَاءَ هَمْزٌ بَعْدَ مَدْ ... فِي كِلْمَةٍ وَذَا بِمُتَّصِلْ يُعَدْ</div>
+                            <div class="english">And Wajib is when hamza, after a letter of madd does follow, in one single word, and this is termed Madd Muttasil also.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 44</span>
+                            <div class="arabic">وَجَائِزٌ مَدٌّ وَقَصْرٌ إِنْ فُصِلْ ... كُلٌّ بِكِلْمَةٍ وَهَذَا الْمُنْفَصِلْ</div>
+                            <div class="english">And Jaiz is when prolongation and shortening are acceptable, when they are in separate words... Madd Munfasil.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 45</span>
+                            <div class="arabic">وَمِثْلُ ذَا إِنْ عَرَضَ السُّكُونُ ... وَقْفًا كَتَعْلَمُونَ نَسْتَعِينُ</div>
+                            <div class="english">And likewise is the case where the sukoon is created, from stopping, in the words ta‘lamoon and nasta‘een illustrated.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 46</span>
+                            <div class="arabic">أَوْ قُدِّمَ الْهَمْزُ عَلَى الْمَدِّ وَذَا ... بَدَلْ كَآمَنُوا وَإِيمَانًا خُذَا</div>
+                            <div class="english">But in those cases the hamza precedes the madd letter, arises the Madd Badal, in aamanu and imaanaa illustrated.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 47</span>
+                            <div class="arabic">وَلاَزِمٌ إِنِ السُّكُونُ أُصِّلاَ ... وَصْلاً وَوَقْفًا بَعْدَ مَدٍّ طُوِّلاَ</div>
+                            <div class="english">And Lazim occurs when real is the stop, after the madd, in flow and stop, and in length there can be no drop.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 15: Madd Lazim Types (Verses 48-53) -->
+            <div class="slide" data-index="14">
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 48-53</span>
+                        <h2>Madd Lazim</h2>
+                        <p>Occurs when Sukoon is permanent. It is split into Word (Kalimi) and Letter (Harfi).</p>
+                        <p>Each is further split into Heavy (Muthaqqal - with Shaddah) or Light (Mukhaffaf - without Shaddah).</p>
+                    </div>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 48</span>
+                            <div class="arabic">أَقْسَامُ لاَزِمٍ لَدَيْهِمْ أَرْبَعَهْ ... وَتِلْكَ كِلْمِيٌّ وَحَرْفِيٌّ مَعَهْ</div>
+                            <div class="english">The types of Lazim among them are four, and they are either the Kalimi or Harfi sort.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 49</span>
+                            <div class="arabic">كِلاَهُمَا مُخَفَّفٌ مُثَقَّلُ ... فَهَذِهِ أَرْبَعَةٌ تُفَصَّلُ</div>
+                            <div class="english">And each of these into the Light or Heavy division, a total of four, with this subsequent exposition.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 50</span>
+                            <div class="arabic">فَإِنْ بِكِلْمَةٍ سُكُونٌ اجْتَمَعْ ... مَعْ حَرْفِ مَدٍّ فَهْوَ كِلْمِيٌّ وَقَعْ</div>
+                            <div class="english">And if a word embraces sukoon in combination, with a madd, it carries the Kalimi designation.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 51</span>
+                            <div class="arabic">أَوْ فِي ثُلاَثِيِّ الْحُرُوفِ وُجِدَا ... وَالْمَدُّ وَسْطُهُ فَحَرْفِيٌّ بَدَا</div>
+                            <div class="english">And if in three disjointed letters both arise, with madd at the center, then the Harfi term applies.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 52</span>
+                            <div class="arabic">كِلاَهُمَا مُثَقَّلٌ إِنْ أُدْغِمَا ... مُخَفَّفٌ كُلٌّ إِذَا لَمْ يُدْغَمَا</div>
+                            <div class="english">Both of these are muthaqqal in the case of idgham, and conversely mukhaffaf when there is no idgham.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 16: Madd Harfi (Verses 54-56) -->
+            <div class="slide" data-index="15">
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Verses 54-56</span>
+                        <h2>Harfi Letters</h2>
+                        <p>These rules apply to the "Disjointed Letters" opening some Surahs.</p>
+                        <p><strong>Lazim (6 Counts):</strong> <em>Kam 'Asal Naqas</em> (8 letters).</p>
+                        <p><strong>Natural (2 Counts):</strong> <em>Hayyun Tahir</em> (5 letters).</p>
+                        <p><strong>No Madd:</strong> Alif.</p>
+                    </div>
+                    <div class="verse-column">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 53</span>
+                            <div class="arabic">وَاللَّازِمُ الْحَرْفِيُّ أَوَّلَ السُّوَرْ ... وُجُودُهُ وَفِي ثَمَانٍ انْحَصَرْ</div>
+                            <div class="english">The Lazim Harfi Madd in the start of the chapters is found, and encompassed in eight distinct letters...</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 54</span>
+                            <div class="arabic">يَجْمَعُهَا حُرُوفُ كَمْ عَسَلْ نَقَصْ ... وَعَيْنُ ذُو وَجْهَيْنِ وَالطُّولُ أَخَصْ</div>
+                            <div class="english">Contained within the "Kam ‘Asal Naqas" expression; and while ‘ayn has two ways, preferred is prolongation.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 55</span>
+                            <div class="arabic">وَمَا سِوَى الْحَرْفِ الثُّلاَثِي لاَ أَلِفْ ... فَمَدُّهُ مَدًّا طَبِيعِيًّا أُلِفْ</div>
+                            <div class="english">And those apart from the trilateral, alif excluding, for their madd, the natural type is more deserving.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 56</span>
+                            <div class="arabic">وَذَاكَ أَيْضًا فِي فَوَاتِحِ السُّوَرْ ... فِي لَفْظِ حَيٍّ طَاهِرٍ قَدِ انْحَصَرْ</div>
+                            <div class="english">And these are also found in the openings of the chapters, and in the expression Hayyun Tahirun captured.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 57</span>
+                            <div class="arabic">وَيَجْمَعُ الْفَوَاتِحَ الأَرْبَعْ عَشَرْ ... صِلْهُ سُحَيْرًا مَنْ قَطَعْكَ ذَا اشْتَهَرْ</div>
+                            <div class="english">And the fourteen of the chapter openings are arrayed, in what they say: Restore the bonds without delay, of the kin that cut the way.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 17: Conclusion (Verses 57-61) -->
+            <div class="slide center-layout" data-index="16">
+                <div class="slide-content">
+                    <div class="text-column">
+                        <span class="kic-badge">Conclusion</span>
+                        <h2>Khatimah (The End)</h2>
+                        <p>The poem concludes with praise to Allah and prayers upon the Prophet Muhammad ﷺ.</p>
+                        <p style="margin-top: 2rem; font-style: italic;">
+                            "Its verses are fragrant for those who possess ingenuity..."
+                        </p>
+                    </div>
+                    <div class="verse-column" style="margin-top: 2rem; height: auto;">
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 58</span>
+                            <div class="arabic">وَتَمَّ ذَا النَّظْمُ بِحَمْدِ اللَّهِ ... عَلَى تَمَامِهِ بِلاَ تَنَاهِي</div>
+                            <div class="english">This ode comes now to its conclusion, with profuse thanks to Allah for its completion.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 59</span>
+                            <div class="arabic">أَبْيَاتُهُ نَدٌّ بَدَا لِذِي النُّهَى ... تَارِيخُهَا بُشْرَى لِمَنْ يُتْقِنُهَا</div>
+                            <div class="english">Its verses are fragrant for those who possess ingenuity, and its date... salutation for those who commit it to memory.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 60</span>
+                            <div class="arabic">ثُمَّ الصَّلاَةُ وَالسَّلاَمُ أَبَدَا ... عَلَى خِتَامِ الأَنْبِيَاءِ أَحْمَدَا</div>
+                            <div class="english">And eternal may His salutations be, upon Ahmad, the Seal of the Prophecy.</div>
+                        </div>
+                        <div class="verse-box">
+                            <span class="verse-num">Verse 61</span>
+                            <div class="arabic">وَالآلِ وَالصَّحْبِ وَكُلِّ تَابِعِ ... وَكُلِّ قَارِئٍ وَكُلِّ سَامِعِ</div>
+                            <div class="english">As well as on his noble family and Companions, and every follower, recitor and those who listen.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 18: Call to Action -->
+            <div class="slide center-layout" data-index="17">
+                <div class="slide-content">
+                    <div class="text-column">
+                        <div class="logo" style="justify-content:center; font-size: 2rem; margin-bottom: 2rem;">
+                            KIC <span>Institute</span>
+                        </div>
+                        <h2>Join Us</h2>
+                        <p>To master these rules with practice and recitation.</p>
+                        <div style="background: var(--card-bg); padding: 2rem; border-radius: 20px; border: 1px solid var(--accent); margin-top: 2rem; display: inline-block;">
+                            <h3 style="color: var(--gold);">Weekend Seminar</h3>
+                            <p style="font-size: 1.2rem; color: #fff; margin: 10px 0;">Nov 29-30 | 5PM-9PM</p>
+                            <p>Sheikh Mudhaffer Noori</p>
+                            <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent);">Sign-up Required</p>
+                        </div>
+                        <br>
+                        <button onclick="goToSlide(0)" style="margin-top: 2rem; background: transparent; border: 1px solid var(--text-secondary);">Back to Start</button>
+                    </div>
+                </div>
             </div>
 
         </div>
 
         <!-- Footer -->
         <footer>
-            <div class="slide-counter">Slide <span id="currentSlideNum">1</span> / 12</div>
+            <div class="slide-counter">Slide <span id="currentSlideNum">1</span> / 18</div>
             <div class="nav-buttons">
                 <button id="prevBtn" disabled>← Prev</button>
                 <button id="nextBtn">Next →</button>
