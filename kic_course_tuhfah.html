@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Children's Bequest | Tajweed Principles</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent: #10b981; /* Emerald */
+            --accent-glow: #34d399;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --gold: #fbbf24;
+            --font-main: 'Outfit', sans-serif;
+            --font-arabic: 'Amiri', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(251, 191, 36, 0.05) 0%, transparent 40%);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Layout --- */
+        .app-container {
+            width: 100%;
+            height: 100%;
+            max-width: 1200px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+        }
+
+        /* --- Header / Progress --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 1rem;
+            z-index: 10;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .progress-container {
+            width: 200px;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            width: 0%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* --- Slides Area --- */
+        .slides-wrapper {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transform: translateX(50px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: all;
+            z-index: 2;
+        }
+
+        .slide.prev-slide {
+            transform: translateX(-50px) scale(0.95);
+        }
+
+        /* --- Slide Content Styling --- */
+        h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
+        }
+
+        h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+        }
+
+        .arabic-title {
+            font-family: var(--font-arabic);
+            font-size: 4rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 700px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .highlight {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* --- Grid & Cards --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 900px;
+            margin-top: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            border-color: var(--accent);
+        }
+
+        .card h4 {
+            color: var(--text-primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card .icon {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            margin: 0;
+            color: var(--text-secondary);
+        }
+
+        .card .letters {
+            display: block;
+            margin-top: 10px;
+            font-family: var(--font-arabic);
+            font-size: 1.4rem;
+            color: var(--accent);
+        }
+
+        /* --- Footer / Navigation --- */
+        footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            z-index: 10;
+        }
+
+        .slide-counter {
+            font-family: monospace;
+            color: var(--text-secondary);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-primary);
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover:not(:disabled) {
+            background: var(--accent);
+            color: #0f172a;
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* --- Special Elements --- */
+        .diagram-row {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .circle-badge {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--card-bg), rgba(255,255,255,0.05));
+            border: 2px solid var(--accent);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: var(--font-arabic);
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .quote-box {
+            border-left: 4px solid var(--gold);
+            padding-left: 1.5rem;
+            font-style: italic;
+            text-align: left;
+            margin-top: 2rem;
+            max-width: 600px;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .arabic-title { font-size: 2.5rem; }
+            .grid-container { grid-template-columns: 1fr; }
+            .app-container { padding: 1rem; }
+            p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="logo">Tuhfah al-Atfāl</div>
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </header>
+
+        <!-- Slides Wrapper -->
+        <div class="slides-wrapper">
+            
+            <!-- Slide 1: Intro -->
+            <div class="slide active" data-index="0">
+                <h3>Introduction</h3>
+                <div class="arabic-title">تحفة الأطفال</div>
+                <h1>The Children's Bequest</h1>
+                <p>A Journey into the Principles of Tajweed based on the poem by <strong>Sulayman al-Jamzuri</strong>.</p>
+                <div style="margin-top: 2rem; padding: 1rem; border: 1px solid var(--accent); border-radius: 8px; display: inline-block;">
+                    <span style="color: var(--accent); font-weight: bold;">Goal:</span> Perfection (Ihsan) in reciting the Qur'an.
+                </div>
+            </div>
+
+            <!-- Slide 2: Context -->
+            <div class="slide" data-index="1">
+                <h3>The Context</h3>
+                <h2>About the Author</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4><span class="icon">✍️</span> The Poet</h4>
+                        <p>Sulayman al-Jamzuri (d. ~1198 AH)</p>
+                        <p>From Jamzur, Egypt.</p>
+                    </div>
+                    <div class="card">
+                        <h4><span class="icon">📜</span> The Text</h4>
+                        <p>Written in verse (rhyme & meter) to facilitate easy memorization for beginners and students.</p>
+                    </div>
+                    <div class="card">
+                        <h4><span class="icon">🎯</span> Focus</h4>
+                        <p>The poem specifically covers Nun Sakin, Tanween, and Madd rules.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3: 4 Rules Intro -->
+            <div class="slide" data-index="2">
+                <h3>Nun Sakin & Tanween</h3>
+                <h2>The Four Fundamental Rules</h2>
+                <p>Whenever you see a Nun with a Sukoon (نْ) or Tanween (an/in/un), one of four rules applies depending on the next letter.</p>
+                <div class="diagram-row">
+                    <div style="text-align: center;">
+                        <div class="circle-badge">1</div>
+                        <p>Izhar<br>(Clarity)</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="circle-badge">2</div>
+                        <p>Idgham<br>(Merging)</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="circle-badge">3</div>
+                        <p>Iqlab<br>(Change)</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="circle-badge">4</div>
+                        <p>Ikhfa<br>(Hiding)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 4: Izhar & Idgham -->
+            <div class="slide" data-index="3">
+                <h3>Nun Sakin Rules</h3>
+                <h2>Izhar & Idgham</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4>🔊 Izhar (Clarity)</h4>
+                        <p>Pronounce the Nun clearly without nasal sound.</p>
+                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">Throat Letters:</p>
+                        <span class="letters">ء هـ ع ح غ خ</span>
+                    </div>
+                    <div class="card">
+                        <h4>🔗 Idgham (Merging)</h4>
+                        <p>Merge the Nun into the next letter.</p>
+                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">Yarmaloon:</p>
+                        <span class="letters">ي ر م ل و ن</span>
+                        <p style="font-size: 0.8rem; margin-top:5px;">Note: No merging if in one single word (e.g., Dunya).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 5: Iqlab & Ikhfa -->
+            <div class="slide" data-index="4">
+                <h3>Nun Sakin Rules</h3>
+                <h2>Iqlab & Ikhfa</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4>🔄 Iqlab (Conversion)</h4>
+                        <p>Convert the Nun into a Hidden Mim with Ghunnah.</p>
+                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">Only 1 Letter:</p>
+                        <span class="letters">ب</span>
+                    </div>
+                    <div class="card">
+                        <h4>🌫️ Ikhfa (Hiding)</h4>
+                        <p>Hide the Nun sound between clear and merged, with Ghunnah.</p>
+                        <p style="margin-top:10px; font-size: 0.8rem; text-transform:uppercase; color: var(--gold);">The Remaining 15:</p>
+                        <p style="font-size:0.8rem; margin-top:5px;">(Ta, Tha, Jim, Dal, Dhal, Zay, Sin, Shin, Sad, Dad, Ta, Za, Fa, Qaf, Kaf)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 6: Mim Rules -->
+            <div class="slide" data-index="5">
+                <h3>Mim & Shaddah</h3>
+                <h2>Rules of Mim Sakin</h2>
+                <div style="margin-bottom: 2rem; background: rgba(16, 185, 129, 0.2); padding: 1rem; border-radius: 8px; border: 1px solid var(--accent);">
+                    <strong>Rule of Shaddah ( ّ ):</strong> Any Nun or Mim with a Shaddah requires a strong Ghunnah (2 counts).
+                </div>
+                <div class="grid-container" style="margin-top: 0;">
+                    <div class="card">
+                        <h4>Ikhfa Shafawi</h4>
+                        <p>Labial Hiding. Before letter <strong>Baa (ب)</strong>.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Idgham</h4>
+                        <p>Merging. Before another <strong>Mim (م)</strong>.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Izhar Shafawi</h4>
+                        <p>Clarity. Before <strong>all other letters</strong>.</p>
+                        <p style="font-size:0.8rem; color: #f87171; margin-top:5px;">⚠️ Be careful not to hide Mim before Waw or Fa!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 7: Lam Rules -->
+            <div class="slide" data-index="6">
+                <h3>The Definite Article</h3>
+                <h2>Rules of Lam (Al-)</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4>🌑 Lam Qamariya (Lunar)</h4>
+                        <p><strong>Pronounced Clearly.</strong></p>
+                        <p>Before 14 letters (e.g., Al-Qamar, Al-Kitab).</p>
+                        <p style="font-size: 0.8rem; margin-top:5px;">"Seek your goal and futile pursuits repel"</p>
+                    </div>
+                    <div class="card">
+                        <h4>☀️ Lam Shamsiyya (Solar)</h4>
+                        <p><strong>Merged (Silent Lam).</strong></p>
+                        <p>Before remaining 14 letters (e.g., Al-Shams, Al-Rahman).</p>
+                    </div>
+                </div>
+                <p style="margin-top: 2rem; font-size: 0.9rem;">*Verbal Lams (in verbs) are always pronounced clearly.</p>
+            </div>
+
+            <!-- Slide 8: Relationships -->
+            <div class="slide" data-index="7">
+                <h3>Advanced</h3>
+                <h2>Letter Relationships</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4>Mithlayn</h4>
+                        <p>Identical letters (e.g. Baa meets Baa).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Mutaqaribayn</h4>
+                        <p>Close in articulation & attributes.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Mutajanisayn</h4>
+                        <p>Same articulation, different attributes.</p>
+                    </div>
+                </div>
+                <p style="margin-top: 1.5rem;">General Rule: If the first is silent (Sakin), merge it into the second.</p>
+            </div>
+
+            <!-- Slide 9: Madd Intro -->
+            <div class="slide" data-index="8">
+                <h3>Elongation</h3>
+                <h2>Introduction to Madd</h2>
+                <div style="font-size: 4rem; color: var(--gold); margin-bottom: 1rem;">ا و ي</div>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4>Madd Asli (Natural)</h4>
+                        <p>Baseline length (2 counts).</p>
+                        <p>Not followed by Hamza or Sukoon.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Madd Far'i (Derived)</h4>
+                        <p>Extra length caused by a reason.</p>
+                        <p><strong>Reasons:</strong> Hamza (ء) or Sukoon (ْ).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 10: Madd Hamza -->
+            <div class="slide" data-index="9">
+                <h3>Caused by Hamza</h3>
+                <h2>Derived Madd Types</h2>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4>Madd Muttasil</h4>
+                        <p>Connected (Same word).</p>
+                        <p style="color:var(--accent);">Mandatory (4-5 counts).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Madd Munfasil</h4>
+                        <p>Separated (Next word).</p>
+                        <p style="color:var(--gold);">Allowed (2, 4-5 counts).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Madd Badal</h4>
+                        <p>Hamza precedes Madd letter.</p>
+                        <p>2 counts.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 11: Madd Lazim -->
+            <div class="slide" data-index="10">
+                <h3>Caused by Sukoon</h3>
+                <h2>Madd Lazim (Compulsory)</h2>
+                <div style="border: 2px solid var(--text-primary); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1rem;">6</div>
+                <p>Must be elongated 6 counts. Caused by a permanent Sukoon.</p>
+                <div class="grid-container">
+                    <div class="card">
+                        <h4>Kalimi (Word)</h4>
+                        <p>Occurs in words (e.g. <em>Daallaleen</em>).</p>
+                    </div>
+                    <div class="card">
+                        <h4>Harfi (Letter)</h4>
+                        <p>Occurs in opening letters (e.g. <em>Alif Lam Meem</em>).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 12: Conclusion -->
+            <div class="slide" data-index="11">
+                <div class="arabic-title">الخاتمة</div>
+                <h2>Conclusion</h2>
+                <div class="quote-box">
+                    <p>"Start simple. Do not wait for the perfect time to study. Utilize the local resources and teachers you have."</p>
+                    <p style="text-align: right; font-size: 0.9rem; margin-top: 1rem;">— Dr. Abu Zayd (Foreword)</p>
+                </div>
+                <p style="margin-top: 2rem;">May Allah grant us the ability to recite His book with perfection (Ihsan).</p>
+                <button onclick="goToSlide(0)" style="margin-top: 2rem; background: var(--gold); color: #000;">Restart Presentation</button>
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="slide-counter">Slide <span id="currentSlideNum">1</span> / 12</div>
+            <div class="nav-buttons">
+                <button id="prevBtn" disabled>← Prev</button>
+                <button id="nextBtn">Next →</button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // State
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        // DOM Elements
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('currentSlideNum');
+        const progressBar = document.getElementById('progressBar');
+
+        // Initialize
+        updateUI();
+
+        // Functions
+        function goToSlide(index) {
+            if (index < 0 || index >= totalSlides) return;
+            
+            // Handle Slide Transition Classes
+            slides[currentSlide].classList.remove('active');
+            slides[currentSlide].classList.add('prev-slide'); // Slide out to left
+            
+            // Direction check for animation cleanliness
+            if(index < currentSlide) {
+                slides[currentSlide].classList.remove('prev-slide');
+            }
+
+            // Clean up previous slides that might be stuck in "prev-slide"
+            slides.forEach((slide, i) => {
+                if(i < index) slide.classList.add('prev-slide');
+                else slide.classList.remove('prev-slide');
+            });
+
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+
+            updateUI();
+        }
+
+        function updateUI() {
+            // Update Text Counter
+            slideCounter.textContent = currentSlide + 1;
+            
+            // Update Progress Bar
+            const progress = ((currentSlide + 1) / totalSlides) * 100;
+            progressBar.style.width = `${progress}%`;
+
+            // Update Buttons
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+        }
+
+        // Event Listeners
+        prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+        nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                goToSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft') {
+                goToSlide(currentSlide - 1);
+            }
+        });
+
+        // Touch Swipe Support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) goToSlide(currentSlide + 1); // Swipe Left
+            if (touchEndX > touchStartX + 50) goToSlide(currentSlide - 1); // Swipe Right
+        }
+    </script>
+</body>
+</html>
